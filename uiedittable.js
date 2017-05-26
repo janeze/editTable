@@ -489,7 +489,7 @@
 		
 		this.create(option.list||[]);
 		//添加单击事件
-		addEvent(this.element.querySelector(".ui-list"),"click",this.checkRow);
+		addEvent(this.element.querySelector(".ui-list"),"click",this.doCheckRow.apply(this));
 	}
 	Func.prototype={
 		 constructor: Func,
@@ -1278,24 +1278,27 @@
         	var data=this.getNewRowData();
         	this.setDatas([data]);
         },
-        checkRow:function(e){
-        	var target=e.target;
-        	var tagName=target.tagName.toLowerCase();
-        	var noCheckTag=["input","select","textarea"];//不响应单击事件
-        	if(noCheckTag.indexOf(tagName)!==-1){
-        		return;
-        	}
-        	var tr=this.getCurrRow(target);
-        	var className=tr.getAttribute("class");
-        	var classList=className.split(/\s+/g);
-        	var activeClass="active";
-        	var index=classList.indexOf(activeClass);
-        	if(index===-1){
-        		classList.push(activeClass);
-        	}else{	
-        		classList.splice(index,1);
-        	}
-    		tr.setAttribute("class",classList.join(" "));
+        doCheckRow:function(){
+        	var that=this;
+        	return function(e){
+	        	var target=e.target;
+	        	var tagName=target.tagName.toLowerCase();
+	        	var noCheckTag=["input","select","textarea"];//不响应单击事件
+	        	if(noCheckTag.indexOf(tagName)!==-1){
+	        		return;
+	        	}
+	        	var tr=that.getCurrRow(target);
+	        	var className=tr.getAttribute("class");
+	        	var classList=className.split(/\s+/g);
+	        	var activeClass="active";
+	        	var index=classList.indexOf(activeClass);
+	        	if(index===-1){
+	        		classList.push(activeClass);
+	        	}else{	
+	        		classList.splice(index,1);
+	        	}
+	    		tr.setAttribute("class",classList.join(" "));
+	    	}
         },
         delRows:function(){
         	var checkRow=this.getCheckRow();
