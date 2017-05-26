@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<HTML>
+
+<HEAD>
+    <TITLE>edit table</TITLE>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="uiedittable.css" type="text/css">
+   <script type="text/javascript" src="uiedittable.js"></script>
+</HEAD>
+
+<BODY>
+   <div id="editTableDemo">
+   </div>
+   <input type="button" onclick="getData()" value="获取数据"/>
+   <input type="button" onclick="addRow()" value="新增一行"/>
+   <input type="button" onclick="delRows()" value="删除一行"/>
+   <script>
+   		var id="editTableDemo";
+   		var data=[
+   			{type:"hide",text:"id",width:"",name:"id"},
+   			{type:"string",text:"编号",width:"",name:"code"},
+            {type:"string",text:"名称",width:"",name:"name"},
+            {type:"string",text:"最小值",width:"",name:"minPrice"},
+   		/*	{type:"text",text:"text类型",width:"",name:"text",minlen:"2",maxlen:30},
+   			{type:"select",text:"select类型",width:"",name:"select",dropdown:[
+   				{key:"1",text:"select1"},
+   				{key:"2",text:"select2"},
+   				{key:"3",text:"select3"},
+   				{key:"4",text:"select4"},
+   				{key:"5",text:"select5"}
+   			]},
+   			{type:"number",text:"number类型",width:"",name:"number",min:1,max:10},
+   			{type:"interger",text:"interger类型",width:"",name:"interger"},
+   			{type:"num",text:"数量类型",width:"",name:"num",unit:"dis"},*/
+            {type:"price",text:"价格类型",width:"",name:"price",unit:"\/元",min:"minPrice"},
+            {type:"string",text:"单位转换率",width:"",name:"rate"},
+   			{type:"multinum",text:"双数量类型",width:"",name:"batchCount",unit:"batchUnit",singleName:"singleCount",singleUnit:"singleUnit",required:true},
+            {type:"string",text:"小计",name:"amount"}
+   		];
+   		var list=[
+            {id:1,code:"a111",name:"名称111",price:"100",batchUnit:"箱",singleUnit:"瓶",batchCount:3,rate:10,minPrice:200},
+            {id:1,code:"a111",name:"名称111",price:"100",batchUnit:"箱",singleUnit:"瓶",batchCount:3,rate:10},
+            {id:1,code:"a111",name:"名称111",price:"100",batchUnit:"箱",singleUnit:"瓶",batchCount:3,rate:10},
+   		];
+	   var treeTable=new EditTable(document.getElementById(id),{
+	   		id:id,
+	   		width:"50%",
+	   		cls:"",
+	   		style:"",
+            rowCount:"amount=(batchCount*rate+singleCount)*(price/rate)",
+            colCount:"batchCount,singleCount,amount",
+	   		data:data,
+	   		list:list
+	   });
+	   function getData(){
+	   	var data=treeTable.getDatas(true);
+	   	console.log(data);
+	   }
+	   function addRow(){
+	   	treeTable.addRow();
+	   }
+	   function delRows(){
+	   		treeTable.delRows();
+	   }
+   </script>
+</BODY>
+
+</HTML>

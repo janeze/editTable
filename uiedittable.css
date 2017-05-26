@@ -1,0 +1,123 @@
+@charset "utf-8";
+.ui-edit-table{
+	display:block;
+	margin: 0;
+	padding:0;
+	width: 100%;
+	text-align: center;
+	color: #333;
+	min-height: 150px;
+}
+.ui-edit-table .ui-table-container{
+	display: table;
+	min-width: 100%;
+	border:1px solid #ddd;
+	border-bottom: none;
+	border-right: none;
+	border-collapse:collapse;
+}
+.ui-head{
+	background-color: #f5f6f7;
+	height:27px;
+}
+.ui-head,
+.ui-list{
+	display: table-row-group;
+	width: 100%;
+}
+.ui-row{
+	display: table-row;
+	margin:0;
+	padding:0;
+	width: 100%;
+}
+.ui-row >td{
+	position: relative;
+	display: table-cell;
+	padding:4px 6px;
+	border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+	color: #333;
+}
+.ui-head >td{
+	white-space: nowrap;
+	color: #687ba4;
+}
+/*类型样式*/
+.ui-row input{
+	padding: 0 2px;
+	border:1px solid #ccc;
+	height: 18px;
+}
+.ui-row select{
+	border:1px  solid #ccc;
+}
+.ui-row span.ui-unit{
+	padding: 0 4px;
+}
+.ui-type-hide,
+.ui-type-hidden{
+	display: none !important;
+}
+.ui-type-number input,
+.ui-type-interger input{
+	width:80px;
+}
+.ui-type-price,
+.ui-type-num,
+.ui-type-multinum{
+	white-space: nowrap;
+}
+.ui-type-price input{
+	width: 100px;
+	text-align: center;
+}
+.ui-type-num input,
+.ui-type-multinum input{
+	width:80px;
+	text-align: center;
+}
+
+.ui-type-multinum input.ui-single-num{
+	width: 50px;
+}
+.ui-type-multinum .ui-group{
+	position: relative;
+	display: inline-block;
+	box-sizing: content-box;
+}
+/*选中样式，hover样式*/
+.ui-list .ui-row:hover{
+	background-color: #d2ebfa;
+}
+.ui-list .ui-row.active{
+	background-color: #d2ebfa;
+}
+/*错误样式*/
+.ui-row .ui-error{
+	border-color: red;
+	outline: none;
+}
+.ui-msg{
+	margin: 0;
+	padding: 0;
+	display: none;
+	color: red;
+	font-size: 12px;
+
+	position: absolute;
+	width: 100%;
+	margin-top: -3px;
+	text-align: center;
+}
+.ui-row .ui-error+.ui-msg{
+	display: block;
+}
+.ui-blank{
+	text-align: right;
+}
+.ui-count .ui-type-multinum span{
+	display: inline-block;
+	width: 50%;
+	text-align: center;
+}
