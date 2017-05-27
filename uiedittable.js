@@ -304,7 +304,7 @@
 	function getColWidth(totalW,data){
 		var len=0,wStr,reg=/[^\d]+$/g,widthNum;
 		for(var i=0;i<data.length;i++){
-			if(data[i].type!=="hide"&&data[i].type!=="hidden"){
+			if(!data[i].isHide){
 				len+=1;
 			}
 		}
@@ -406,16 +406,14 @@
 			text=obj.text||"",
 			name=obj.name||"",
 			otherName=obj.otherName||name,
-			width=obj.width||"";
+			width=obj.width||"",
+			hideCls="";
 		var v="";
 		var dObj;
-        if(obj.isHide){
-            type="hide";
-        }
 		if(isHead){
-			width=width||unsureData;
+		//	width=width||unsureData;
 			type=type||"string";
-			obj.width=unsureData;
+		//	obj.width=unsureData;
 			obj.type=type;
 		}else{//非表头使用
 			var dObj=unsureData;
@@ -425,16 +423,19 @@
 				v=isBlank(dObj[name])?"":dObj[name];
 			}
 		}
-		if(type==="hide"||type==="hidden"){
+		if(obj.isHide){
 			width=0;
+			hideCls=" ui-hide";
 		}
 		var attrs=[
-				["class","ui-type-"+type],
+				["class","ui-type-"+type+ hideCls],
 				["name",name],
 				["ui-index",i]
 			];
 		if(isHead){
-			attrs.push(["width",width]);
+			if(width){
+				attrs.push(["width",width]);
+			}
 		}
 		var ele=createEle.call(this,{
 			tagName:"td",
@@ -442,7 +443,7 @@
 		});
 		if(isHead){//表头
 			ele.textContent=text;
-		}else if(type==="hidden"||type==="hide"||type==="string"){//隐藏字段类型，string类型
+		}else if(type==="string"){//string类型
 			ele.textContent=v;
 		}else if(type==="text"){//text类型
 			that.getTextCol(ele,obj,name,text,dObj,v);
@@ -603,20 +604,26 @@
             		["class","ui-count ui-row"]
             	]
             });
-            var li,name,type,width,tw=0,col=0,wStr,hasBlank,attrs;
+            var li,name,type,width,tw=0,col=0,wStr,hasBlank,attrs,isHide;
             var getWidth=function(tw,w){
             	var reg=/[^\d]+$/;
-            	wStr=w.match(reg)[0];
-            	w=w.replace(reg,"");
-            	return tw+Number(w);
+            	if(w){
+            		wStr=w.match(reg)[0];
+	            	w=w.replace(reg,"");
+	            	return tw+Number(w);
+            	}else{
+            		return "";
+            	}
+            	
             }
             //构造行
             for(var i=0,l=data.length;i<l;i++){
             	name=data[i].name;
             	type=data[i].type;
+            	isHide=data[i].isHide;
             	width=data[i].width;
             	tw=getWidth(tw,width);
-            	if(type!=="hide"&&type!=="hidden"){
+            	if(!isHide){
             		col+=1;
             	}
             	

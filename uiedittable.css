@@ -55,8 +55,7 @@
 .ui-row span.ui-unit{
 	padding: 0 4px;
 }
-.ui-type-hide,
-.ui-type-hidden{
+.ui-hide{
 	display: none !important;
 }
 .ui-type-number input,
