@@ -418,9 +418,9 @@
 		}else{//非表头使用
 			var dObj=unsureData;
 			//v=isBlank(dObj[name])?"":dObj[name];
-			v=isBlank(dObj[otherName])?"":dObj[otherName];
+			v=isBlank(dObj[name])?"":dObj[name];
 			if(isBlank(v)){
-				v=isBlank(dObj[name])?"":dObj[name];
+				v=isBlank(dObj[otherName])?"":dObj[otherName];
 			}
 		}
 		if(obj.isHide){
@@ -443,7 +443,7 @@
 		});
 		if(isHead){//表头
 			ele.textContent=text;
-		}else if(type==="string"){//string类型
+		}else if(type==="string"||type==="hide"||type==="hidden"){//string类型,做兼容，原先有hide和hidden类型
 			ele.textContent=v;
 		}else if(type==="text"){//text类型
 			that.getTextCol(ele,obj,name,text,dObj,v);
@@ -479,6 +479,7 @@
 		this.style=option.style;
 		this.decimalplace=isBlank(option.decimalplace)?2:option.decimalplace,//保留小数位，仅对小数类型数据起作用，当不输入的时候默认是2
         this.outPutParam=option.outPutParam;//输出参数
+        this.unitId=option.unitId||"id";
         this.amountName=option.amountName;//提交合计数据的列
         this.rowCount=option.rowCount;//行小计公式
         this.colCount=option.colCount;//合计列
@@ -628,7 +629,9 @@
             	}
             	
             	if(expression.indexOf(name)===-1){
-            		hasBlank=true;
+            		if(!isHide){
+            			hasBlank=true;
+            		}
             		continue;
             	}
             	if(hasBlank){
@@ -665,7 +668,7 @@
             if(hasBlank){
             		//空白
             		tw=getWidth(tw,"-"+width);
-            		col-=1;
+            		//col-=1;
 	           		li=createEle.call(this,{
 		            	tagName:"td",
 		            	attrs:[
